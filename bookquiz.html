@@ -3,45 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classification System</title>
+    <title>Call Number Lookup</title>
 </head>
 <body>
-    <h1>Classification System</h1>
-    <label for="callNumber">Enter Call Number:</label>
-    <input type="text" id="callNumber">
-    <button onclick="classify()">Classify</button>
+    <h1>Call Number Lookup</h1>
+    <label for="category">Enter Category:</label>
+    <input type="text" id="category">
+    <button onclick="lookup()">Lookup</button>
     <p id="result"></p>
 
     <script>
-        function classify() {
+        function lookup() {
             // Get the input value
-            var callNumber = document.getElementById("callNumber").value;
+            var category = document.getElementById("category").value;
 
-            // Define classification ranges and categories
-            var ranges = [
-                { range: [0, 99], category: "000 총류" },
-                { range: [100, 199], category: "100 철학" },
-                { range: [200, 299], category: "200 종교" },
-                { range: [300, 399], category: "300 사회과학" },
-                { range: [400, 499], category: "400 자연과학" },
-                { range: [500, 599], category: "500 기술과학" },
-                { range: [600, 699], category: "600 예술" },
-                { range: [700, 799], category: "700 언어" },
-                { range: [800, 899], category: "800 문학" },
-                { range: [900, 999], category: "900 역사" }
-            ];
+            // Define categories and their corresponding call number ranges
+            var categories = {
+                "000 총류": [0, 99],
+                "100 철학": [100, 199],
+                "200 종교": [200, 299],
+                "300 사회과학": [300, 399],
+                "400 자연과학": [400, 499],
+                "500 기술과학": [500, 599],
+                "600 예술": [600, 699],
+                "700 언어": [700, 799],
+                "800 문학": [800, 899],
+                "900 역사": [900, 999]
+            };
 
-            // Find the category for the input call number
-            var category = "Unknown";
-            var inputNumber = parseInt(callNumber);
-            ranges.forEach(function (range) {
-                if (inputNumber >= range.range[0] && inputNumber <= range.range[1]) {
-                    category = range.category;
-                }
-            });
+            // Find the call number range for the input category
+            var range = categories[category];
+            var callNumber = "Unknown";
+            if (range) {
+                // Generate a random call number within the range
+                callNumber = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+            }
 
             // Display the result
-            document.getElementById("result").innerText = "대분류: " + category;
+            document.getElementById("result").innerText = "청구번호: " + callNumber;
         }
     </script>
 </body>
