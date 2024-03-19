@@ -1,35 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>십진분류법 퀴즈</title>
+    <title>카테고리와 청구번호 퀴즈</title>
 </head>
 <body>
-    <h1>십진분류법 퀴즈</h1>
-    <label for="categoryInput">카테고리 입력:</label>
+    <h1>카테고리와 청구번호 퀴즈</h1>
+    <label for="categoryInput">카테고리를 입력하세요:</label>
     <input type="text" id="categoryInput">
-    <button onclick="generateCallNumber()">청구번호 뽑기</button>
+    <button onclick="generateCallNumber()">청구번호 생성</button>
     <p id="callNumberDisplay"></p>
-    <button onclick="checkAnswer()">정답확인</button>
+    <button onclick="checkAnswer()">답 확인</button>
     <p id="result"></p>
 
     <script>
-        // Function to generate a random call number
+        // 랜덤한 청구번호 생성 함수
         function generateCallNumber() {
             var min = 0;
             var max = 999;
-            var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min; // Generate a random number between 0 and 999
-            document.getElementById("callNumberDisplay").innerText = "Generated Call Number: " + randomNumber;
+            var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min; // 0에서 999 사이의 랜덤한 숫자 생성
+
+            // 세 자리 숫자로 만들기 위해 앞에 0 추가
+            var formattedNumber = randomNumber.toString().padStart(3, '0');
+
+            document.getElementById("callNumberDisplay").innerText = "생성된 청구번호: " + formattedNumber;
         }
 
-        // Function to check if the user's input matches the correct category for the generated call number
+        // 사용자가 입력한 카테고리가 올바른지 확인하는 함수
         function checkAnswer() {
-            // Get the user's input and the generated call number
+            // 사용자 입력과 생성된 청구번호 가져오기
             var categoryInput = document.getElementById("categoryInput").value;
             var callNumber = parseInt(document.getElementById("callNumberDisplay").innerText.split(": ")[1]);
 
-            // Define the correct category for each possible call number range
+            // 가능한 모든 청구번호 범위와 해당 카테고리 정의
             var categories = {
                 "100 철학": [100, 199],
                 "000 총류": [0, 99],
@@ -43,7 +47,7 @@
                 "900 역사": [900, 999]
             };
 
-            // Check if the user's input matches the correct category
+            // 사용자 입력과 일치하는 카테고리 찾기
             var correctCategory = "";
             for (var key in categories) {
                 if (callNumber >= categories[key][0] && callNumber <= categories[key][1]) {
@@ -54,12 +58,12 @@
 
             var resultMessage = "";
             if (categoryInput === correctCategory) {
-                resultMessage = "Correct!";
+                resultMessage = "정답입니다!";
             } else {
-                resultMessage = "Incorrect. The correct category is: " + correctCategory;
+                resultMessage = "틀렸습니다. 정답은: " + correctCategory;
             }
 
-            // Display the result
+            // 결과 표시
             document.getElementById("result").innerText = resultMessage;
         }
     </script>
