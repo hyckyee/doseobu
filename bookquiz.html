@@ -12,39 +12,88 @@
 </head>
 <body>
     <h1>Book Classification Quiz</h1>
-    <p>아래의 청구번호에 해당하는 책을 맞춰보세요.</p>
+    <p>주어진 청구번호에 해당하는 책의 분류를 맞춰보세요.</p>
     <p id="bookNumber"></p>
 
-    <label for="guess">청구번호를 입력하세요:</label>
-    <input type="text" id="guess">
+    <label for="classificationSelect">분류를 선택하세요:</label>
+    <select id="classificationSelect">
+        <option value="0">총류</option>
+        <option value="100">철학</option>
+        <option value="200">종교</option>
+        <option value="300">사회과학</option>
+        <option value="400">자연과학</option>
+        <option value="500">기술과학</option>
+        <option value="600">예술</option>
+        <option value="700">언어</option>
+        <option value="800">문학</option>
+        <option value="900">역사</option>
+    </select>
     <button onclick="checkAnswer()">제출하기</button>
 
     <div id="result"></div>
 
     <script>
-        // 랜덤한 청구번호 생성 함수
-        function generateBookNumber() {
-            var randomNumber = Math.floor(Math.random() * 1000); // 0부터 999까지의 숫자 중에서 랜덤 선택
-            return randomNumber;
+        var books = [
+            { title: "1984", classification: 100 }, // 철학
+            { title: "백년의 고독", classification: 100 }, // 철학
+            { title: "사랑의 꽃", classification: 800 }, // 문학
+            { title: "미움받을 용기", classification: 400 }, // 자연과학
+            { title: "토지", classification: 900 }, // 역사
+            { title: "해리 포터와 마법사의 돌", classification: 600 }, // 예술
+            { title: "기적", classification: 800 }, // 문학
+            { title: "죄와 벌", classification: 100 }, // 철학
+            { title: "코믹메이플", classification: 500 } // 기술과학
+        ];
+
+        var currentIndex = 0;
+
+        function displayBook() {
+            document.getElementById("bookNumber").innerText = "청구번호: " + currentIndex;
         }
 
-        // 페이지 로딩 시 초기화
-        window.onload = function() {
-            var bookNumber = generateBookNumber();
-            document.getElementById("bookNumber").innerText = "청구번호: " + bookNumber;
-            localStorage.setItem("correctBookNumber", bookNumber); // 정답 청구번호를 저장
-        };
-
-        // 정답 확인 함수
         function checkAnswer() {
-            var guess = document.getElementById("guess").value;
-            var correctBookNumber = localStorage.getItem("correctBookNumber");
+            var selectedClassification = parseInt(document.getElementById("classificationSelect").value);
+            var correctClassification = books[currentIndex].classification;
             var resultDisplay = document.getElementById("result");
 
-            if (guess === correctBookNumber) {
+            if (selectedClassification === correctClassification) {
                 resultDisplay.innerText = "정답입니다!";
             } else {
-                resultDisplay.innerText = "틀렸습니다. 정답은 " + correctBookNumber + "입니다.";
+                resultDisplay.innerText = "틀렸습니다. 정답은 " + getClassificationName(correctClassification) + "입니다.";
+            }
+
+            // 다음 책을 표시하기 위해 인덱스를 증가시킴
+            currentIndex++;
+            if (currentIndex >= books.length) {
+                currentIndex = 0; // 배열의 끝에 도달하면 처음부터 다시 시작
+            }
+            displayBook(); // 다음 책 표시
+        }
+
+        function getClassificationName(classification) {
+            switch(classification) {
+                case 0:
+                    return "총류";
+                case 100:
+                    return "철학";
+                case 200:
+                    return "종교";
+                case 300:
+                    return "사회과학";
+                case 400:
+                    return "자연과학";
+                case 500:
+                    return "기술과학";
+                case 600:
+                    return "예술";
+                case 700:
+                    return "언어";
+                case 800:
+                    return "문학";
+                case 900:
+                    return "역사";
+                default:
+                    return "Unknown";
             }
         }
     </script>
