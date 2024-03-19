@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Books</title>
+</head>
+<body>
+    <h1>Books</h1>
+    <ul id="book-list"></ul>
+    <button onclick="sortBooks()">Sort by Call Number</button>
+    <script>
+const bookList = document.getElementById('book-list');
+
+// Sample book data (replace with your actual data)
+const books = [
+  { title: "Book A", callNumber: "QA76.76.D43" },
+  { title: "Book C", callNumber: "PS3555.E78" },
+  { title: "Book B", callNumber: "PR6063.A2" },
+];
+
+function sortBooks() {
+  // Sort the books by call number
+  books.sort((a, b) => {
+    const callNumberA = a.callNumber.toLowerCase();
+    const callNumberB = b.callNumber.toLowerCase();
+    return callNumberA.localeCompare(callNumberB);
+  });
+
+  // Clear the list before repopulating
+  bookList.innerHTML = "";
+
+  // Display sorted books
+  books.forEach(book => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${book.title} - ${book.callNumber}`;
+    bookList.appendChild(listItem);
+  });
+}
+
+</script>
+</body>
+</html>
