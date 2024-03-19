@@ -3,54 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Call Number and Category Lookup</title>
+    <title>Random Number and Category Quiz</title>
 </head>
 <body>
-    <h1>Call Number and Category Lookup</h1>
-    <button onclick="generateCallNumber()">Generate Call Number</button>
-    <p id="callNumberDisplay"></p>
+    <h1>Random Number and Category Quiz</h1>
+    <button onclick="generateRandomNumber()">Generate Random Number</button>
+    <p id="randomNumberDisplay"></p>
 
-    <label for="category">Enter Category:</label>
-    <input type="text" id="category">
-    <button onclick="lookup()">Lookup</button>
+    <label for="categoryInput">Enter Category:</label>
+    <input type="text" id="categoryInput">
+    <button onclick="checkAnswer()">Check Answer</button>
     <p id="result"></p>
 
     <script>
-        // Function to generate a random call number
-        function generateCallNumber() {
-            var randomCallNumber = Math.floor(Math.random() * 1000);
-            document.getElementById("callNumberDisplay").innerText = "Generated Call Number: " + randomCallNumber;
+        // Function to generate a random number
+        function generateRandomNumber() {
+            var randomNumber = Math.floor(Math.random() * 10) + 1; // Generate a random number between 1 and 10
+            document.getElementById("randomNumberDisplay").innerText = "Random Number: " + randomNumber;
         }
 
-        // Function to lookup category based on the input call number
-        function lookup() {
-            // Get the input value
-            var category = document.getElementById("category").value;
+        // Function to check if the user's input matches the correct category for the random number
+        function checkAnswer() {
+            // Get the user's input and the generated random number
+            var categoryInput = document.getElementById("categoryInput").value;
+            var randomNumber = parseInt(document.getElementById("randomNumberDisplay").innerText.split(": ")[1]);
 
-            // Define categories and their corresponding call number ranges
+            // Define the correct category for each possible random number
             var categories = {
-                "000 총류": [0, 99],
-                "100 철학": [100, 199],
-                "200 종교": [200, 299],
-                "300 사회과학": [300, 399],
-                "400 자연과학": [400, 499],
-                "500 기술과학": [500, 599],
-                "600 예술": [600, 699],
-                "700 언어": [700, 799],
-                "800 문학": [800, 899],
-                "900 역사": [900, 999]
+                1: "000 총류",
+                2: "100 철학",
+                3: "200 종교",
+                4: "300 사회과학",
+                5: "400 자연과학",
+                6: "500 기술과학",
+                7: "600 예술",
+                8: "700 언어",
+                9: "800 문학",
+                10: "900 역사"
             };
 
-            // Find the call number range for the input category
-            var range = categories[category];
-            var callNumber = "Unknown";
-            if (range) {
-                // Generate a random call number within the range
-                callNumber = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+            // Check if the user's input matches the correct category
+            var correctCategory = categories[randomNumber];
+            var resultMessage = "";
+            if (categoryInput === correctCategory) {
+                resultMessage = "Correct!";
+            } else {
+                resultMessage = "Incorrect. The correct category is: " + correctCategory;
             }
 
             // Display the result
-            document.getElementById("result").innerText = "Generated Call Number: " + callNumber;
+            document.getElementById("result").innerText = resultMessage;
         }
     </script>
 </body>
