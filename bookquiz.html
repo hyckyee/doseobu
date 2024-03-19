@@ -16,9 +16,11 @@
     <p id="result"></p>
 
     <script>
-        // Function to generate a random number
+        // Function to generate a random number between min and max (inclusive)
         function generateRandomNumber() {
-            var randomNumber = Math.floor(Math.random() * 10) + 1; // Generate a random number between 1 and 10
+            var min = 100;
+            var max = 999;
+            var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min; // Generate a random number between min and max
             document.getElementById("randomNumberDisplay").innerText = "Random Number: " + randomNumber;
         }
 
@@ -30,16 +32,15 @@
 
             // Define the correct category for each possible random number
             var categories = {
-                1: "000 총류",
-                2: "100 철학",
-                3: "200 종교",
-                4: "300 사회과학",
-                5: "400 자연과학",
-                6: "500 기술과학",
-                7: "600 예술",
-                8: "700 언어",
-                9: "800 문학",
-                10: "900 역사"
+                100: "100 철학",
+                200: "200 종교",
+                300: "300 사회과학",
+                400: "400 자연과학",
+                500: "500 기술과학",
+                600: "600 예술",
+                700: "700 언어",
+                800: "800 문학",
+                900: "900 역사"
             };
 
             // Check if the user's input matches the correct category
