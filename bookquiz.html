@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Call Number Lookup</title>
+    <title>Call Number and Category Lookup</title>
 </head>
 <body>
-    <h1>Call Number Lookup</h1>
+    <h1>Call Number and Category Lookup</h1>
+    <button onclick="generateCallNumber()">Generate Call Number</button>
+    <p id="callNumberDisplay"></p>
+
     <label for="category">Enter Category:</label>
     <input type="text" id="category">
     <button onclick="lookup()">Lookup</button>
     <p id="result"></p>
 
     <script>
+        // Function to generate a random call number
+        function generateCallNumber() {
+            var randomCallNumber = Math.floor(Math.random() * 1000);
+            document.getElementById("callNumberDisplay").innerText = "Generated Call Number: " + randomCallNumber;
+        }
+
+        // Function to lookup category based on the input call number
         function lookup() {
             // Get the input value
             var category = document.getElementById("category").value;
@@ -40,7 +50,7 @@
             }
 
             // Display the result
-            document.getElementById("result").innerText = "청구번호: " + callNumber;
+            document.getElementById("result").innerText = "Generated Call Number: " + callNumber;
         }
     </script>
 </body>
