@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Classification Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+    <h1>Book Classification Quiz</h1>
+    <p>아래의 청구번호에 해당하는 책을 맞춰보세요.</p>
+    <p id="bookNumber"></p>
+
+    <label for="guess">청구번호를 입력하세요:</label>
+    <input type="text" id="guess">
+    <button onclick="checkAnswer()">제출하기</button>
+
+    <div id="result"></div>
+
+    <script>
+        // 랜덤한 청구번호 생성 함수
+        function generateBookNumber() {
+            var randomNumber = Math.floor(Math.random() * 1000); // 0부터 999까지의 숫자 중에서 랜덤 선택
+            return randomNumber;
+        }
+
+        // 페이지 로딩 시 초기화
+        window.onload = function() {
+            var bookNumber = generateBookNumber();
+            document.getElementById("bookNumber").innerText = "청구번호: " + bookNumber;
+            localStorage.setItem("correctBookNumber", bookNumber); // 정답 청구번호를 저장
+        };
+
+        // 정답 확인 함수
+        function checkAnswer() {
+            var guess = document.getElementById("guess").value;
+            var correctBookNumber = localStorage.getItem("correctBookNumber");
+            var resultDisplay = document.getElementById("result");
+
+            if (guess === correctBookNumber) {
+                resultDisplay.innerText = "정답입니다!";
+            } else {
+                resultDisplay.innerText = "틀렸습니다. 정답은 " + correctBookNumber + "입니다.";
+            }
+        }
+    </script>
+</body>
+</html>
