@@ -1,43 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sort Books</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Classification Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
 </head>
 <body>
-    <h1>Books</h1>
-    <ul id="book-list"></ul>
-    <button onclick="sortBooks()">Sort by Call Number</button>
+    <h1>Book Classification Quiz</h1>
+    <p>십진분류법에 따라 책을 분류해 보세요.</p>
+    <p>1. 자연과학</p>
+    <p>2. 철학</p>
+    <p>3. 종교</p>
+    <p>4. 사회과학</p>
+    <p>5. 순수과학</p>
+    <p>6. 기술과학</p>
+    <p>7. 예술</p>
+    <p>8. 언어</p>
+    <p>9. 문학</p>
+    <p>10. 역사</p>
+
+    <label for="bookNumber">책의 십진분류 번호를 입력하세요:</label>
+    <input type="text" id="bookNumber">
+    <button onclick="classifyBook()">분류하기</button>
+
+    <div id="result"></div>
+
     <script>
-const bookList = document.getElementById('book-list');
+        function classifyBook() {
+            var bookNumber = document.getElementById("bookNumber").value;
 
-// Sample book data (replace with your actual data)
-const books = [
-  { title: "Book A", callNumber: "QA76.76.D43" },
-  { title: "Book C", callNumber: "PS3555.E78" },
-  { title: "Book B", callNumber: "PR6063.A2" },
-];
+            var classification;
+            switch(bookNumber) {
+                case '1':
+                    classification = "자연과학";
+                    break;
+                case '2':
+                    classification = "철학";
+                    break;
+                case '3':
+                    classification = "종교";
+                    break;
+                case '4':
+                    classification = "사회과학";
+                    break;
+                case '5':
+                    classification = "순수과학";
+                    break;
+                case '6':
+                    classification = "기술과학";
+                    break;
+                case '7':
+                    classification = "예술";
+                    break;
+                case '8':
+                    classification = "언어";
+                    break;
+                case '9':
+                    classification = "문학";
+                    break;
+                case '10':
+                    classification = "역사";
+                    break;
+                default:
+                    classification = "잘못된 입력입니다.";
+            }
 
-function sortBooks() {
-  // Sort the books by call number
-  books.sort((a, b) => {
-    const callNumberA = a.callNumber.toLowerCase();
-    const callNumberB = b.callNumber.toLowerCase();
-    return callNumberA.localeCompare(callNumberB);
-  });
-
-  // Clear the list before repopulating
-  bookList.innerHTML = "";
-
-  // Display sorted books
-  books.forEach(book => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${book.title} - ${book.callNumber}`;
-    bookList.appendChild(listItem);
-  });
-}
-
-</script>
+            document.getElementById("result").innerText = "이 책은 " + classification + "에 속합니다.";
+        }
+    </script>
 </body>
 </html>
